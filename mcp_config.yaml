@@ -2,5 +2,5 @@ cockroachdb:
   host: chinook-db
   port: 5432
   database: chinook
-  username: music
+  username: musicAI
   ssl_mode: disable
