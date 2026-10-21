@@ -30,3 +30,5 @@ docker run --rm --name chinook-seeder --network agent-net --label $L \
   docker/mcp-gateway:latest \
   --transport=sse --secrets=/run/secrets/database-url --allow-unauthenticated \
   --servers=cockroachdb --tools=execute_query --config=/mcp_config.yaml
+  
+  until docker logs mcp-gateway 2>&1 | grep -qi "listening"; do sleep 2; done
