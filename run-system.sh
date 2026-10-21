@@ -22,3 +22,11 @@ docker run --rm --name chinook-seeder --network agent-net --label $L \
   -e SQLITE_FILE=/app/Chinook.db \
   -e "DATABASE_URL=postgres://musicAI:Secret123!@chinook-db:5432/chinook" \
   chinook-seeder 
+
+  docker run -d --name mcp-gateway --network agent-net --label $L \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v "$PWD/mcp_config.yaml:/mcp_config.yaml:ro" \
+  -v "$PWD/mcp_secret.env:/run/secrets/database-url:ro" \
+  docker/mcp-gateway:latest \
+  --transport=sse --secrets=/run/secrets/database-url --allow-unauthenticated \
+  --servers=cockroachdb --tools=execute_query --config=/mcp_config.yaml
