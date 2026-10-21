@@ -8,3 +8,5 @@ docker volume ls -q --filter label=$L | xargs -r docker volume rm
 
 docker stop chinook-db 2>/dev/null || true
 docker rm chinook-db 2>/dev/null || true
+
+docker image ls -q --filter label=$L | xargs -r docker rmi -f
